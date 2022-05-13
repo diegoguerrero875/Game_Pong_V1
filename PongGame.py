@@ -31,8 +31,22 @@ bola.penup()
 bola.goto(0, 0)
 bola.dx = .2
 bola.dy = .2
-# Funciones de movimiento
 
+# Pen
+pen = turtle.Turtle()
+pen.speed(0)
+pen.color("white")
+pen.penup()
+pen.hideturtle()
+pen.goto(0, 260)
+pen.write("Player A: 0  Player B: 0", align="center", font=("Courier", 24, "normal"))
+
+# Score
+score_a = 0
+score_b = 0
+
+
+# Funciones de movimiento
 def paleta_A_up():
     y = paleta_A.ycor()
     y += 20
@@ -83,10 +97,16 @@ while True:
     if bola.xcor() > 390:
         bola.goto(0, 0)
         bola.dx *= -1
+        score_a += 1
+        pen.clear()
+        pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center", font=("Courier", 24, "normal"))
 
     if bola.xcor() < -390:
         bola.goto(0, 0)
         bola.dx *= -1
+        score_b += 1
+        pen.clear()
+        pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center", font=("Courier", 24, "normal"))
 
     #bote
     if (bola.xcor() > 340 and bola.xcor() < 350) and (bola.ycor() < paleta_B.ycor() + 50 and bola.ycor() > paleta_B.ycor() -50):
@@ -96,3 +116,6 @@ while True:
     if (bola.xcor() < -340 and bola.xcor() > -350) and (bola.ycor() < paleta_A.ycor() + 50 and bola.ycor() > paleta_A.ycor() -50):
         bola.setx(-340)
         bola.dx *= -1
+
+    if score_b == 5 or score_a == 5:
+        exit()
